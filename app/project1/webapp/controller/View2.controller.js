@@ -66,20 +66,32 @@ sap.ui.define([
 
                 }
 
-                // oModel.create("/Suppliers",myData,{
-                //     success : function(res){
-                //         console.log(res)
-                //     },
-                //     error : function(err){
-                //         console.log(err)
-                //     }
-                // })
+                oModel.create("/Suppliers",myData,{
+                    success : function(res){
+                        console.log("done")
+                    },
+                    error : function(err){
+                        console.log(err)
+                    }
+                })
 
 
                 
             },
             onCancelOrder : function(){
                 this._oCreateProductDialog.close()
+            },
+            onDeletePress : function(){
+                debugger
+                let oModel = this.getOwnerComponent().getModel();
+               oModel.remove("/Suppliers(5)",{
+                success : function(res){
+                    console.log("done")
+                },
+                error : function(err){
+                    console.log(err)
+                }
+               })
             }
         });
     });
