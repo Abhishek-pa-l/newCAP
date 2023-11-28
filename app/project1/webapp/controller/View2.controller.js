@@ -1,11 +1,12 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    "sap/m/MessageToast"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment) {
+    function (Controller, Fragment,MessageToast) {
         "use strict";
 
         return Controller.extend("com.sap.project1.controller.View2", {
@@ -16,21 +17,21 @@ sap.ui.define([
 
                 if (!this._oCreateProductDialog) {
                     Fragment.load({
-                      id: this.getView().getId(),
-                      name: "com.sap.project1.view.fragment.Supplier",
-                      controller: this
+                        id: this.getView().getId(),
+                        name: "com.sap.project1.view.fragment.Supplier",
+                        controller: this
                     }).then(oDialog => {
-                      this._oCreateProductDialog = oDialog
-                      this.getView().addDependent(oDialog)
-                      oDialog.open()
+                        this._oCreateProductDialog = oDialog
+                        this.getView().addDependent(oDialog)
+                        oDialog.open()
                     })
-                  } else {
+                } else {
                     this._oCreateProductDialog.open()
-                  }
+                }
 
 
             },
-            confirmOrder : function(){
+            confirmOrder: function () {
                 debugger
                 let oModel = this.getOwnerComponent().getModel();
                 let oSupplierID = this.getView().byId("SupplierID").getValue();
@@ -46,52 +47,84 @@ sap.ui.define([
                 let oFax = this.getView().byId("Fax").getValue();
                 let oHomePage = this.getView().byId("HomePage").getValue();
 
-                let myData={
-                    SupplierID : oSupplierID,
-                    CompanyName : oCompanyName,
-                    ContactName : oContactName,
-                    ContactTitle : oContactTitle,
-                    Address :oAddress,
-                    City : oCity,
-                    Region : oRegion,
-                    PostalCode : oPostalCode,
-                    Country : oCountry,
-                    Phone : oPhone,
-                    Fax : oFax,
-                    HomePage : oHomePage
+                let myData = {
+                    SupplierID: oSupplierID,
+                    CompanyName: oCompanyName,
+                    ContactName: oContactName,
+                    ContactTitle: oContactTitle,
+                    Address: oAddress,
+                    City: oCity,
+                    Region: oRegion,
+                    PostalCode: oPostalCode,
+                    Country: oCountry,
+                    Phone: oPhone,
+                    Fax: oFax,
+                    HomePage: oHomePage
 
-                    
+
 
 
 
                 }
 
-                oModel.create("/Suppliers",myData,{
-                    success : function(res){
-                        console.log("done")
+                oModel.create("/Suppliers", myData, {
+                    success: function (res) {
+                        MessageToast.show("Data added successfully");
+                        this._oCreateProductDialog.close()
                     },
-                    error : function(err){
+                    error: function (err) {
                         console.log(err)
                     }
                 })
 
 
-                
+
             },
-            onCancelOrder : function(){
+            onCancelOrder: function () {
                 this._oCreateProductDialog.close()
             },
-            onDeletePress : function(){
-                debugger
-                let oModel = this.getOwnerComponent().getModel();
-               oModel.remove("/Suppliers(5)",{
-                success : function(res){
-                    console.log("done")
-                },
-                error : function(err){
-                    console.log(err)
+            onDeletePress: function () {
+                // Get the selected items from the table
+                var oTable = this.getView().byId("supplierTable");
+                var aSelectedItems = oTable.getSelectedItems();
+
+                // Check if any items are selected
+                if (aSelectedItems.length === 0) {
+                    MessageToast.show("No items selected for deletion");
+                    return;
                 }
-               })
-            }
+
+                // Confirmation dialog
+                var that = this;
+                sap.m.MessageBox.confirm("Are you sure you want to delete the selected items?", {
+                    title: "Confirm Deletion",
+                    onClose: function (oAction) {
+                        if (oAction === sap.m.MessageBox.Action.OK) {
+                            // User confirmed deletion
+                            that.performDelete(aSelectedItems);
+                        }
+                        // else: User canceled deletion
+                    }
+                });
+            },
+
+            performDelete: function (aSelectedItems) {
+                // Get the model and remove each selected item
+                var oModel = this.getOwnerComponent().getModel();
+                aSelectedItems.forEach(function (oSelectedItem) {
+                    var sPath = oSelectedItem.getBindingContext().getPath();
+                    oModel.remove(sPath, {
+                        success: function (res) {
+                            console.log("Item deleted successfully");
+                            MessageToast.show("Item Deleted Successfully")
+                        },
+                        error: function (err) {
+                            console.error("Error deleting item:", err);
+                        }
+                    });
+                });
+
+                
+            },
         });
     });
