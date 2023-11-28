@@ -128,17 +128,21 @@ sap.ui.define([
 
                 
             },
-            onSearch : function(oEvent){
+            onSearch: function (oEvent) {
                 var aFilter = [];
-			var sQuery = oEvent.getParameter("query");
-			if (sQuery) {
-				aFilter.push(new Filter("CompanyName", FilterOperator.Contains, sQuery));
-			}
-
-			// filter binding
-			var oTable = this.byId("supplierTable");
-			var oBinding = oTable.getBinding("items");
-			oBinding.filter(aFilter);
+                var sQuery = oEvent.getParameter("query");
+                if (sQuery) {
+                    // Convert the search query to an integer
+                    var iQuery = parseInt(sQuery);
+                    if (!isNaN(iQuery)) {
+                        aFilter.push(new Filter("SupplierID", FilterOperator.EQ, iQuery));
+                    }
+                }
+           
+                // filter binding
+                var oTable = this.getView().byId("supplierTable");
+                var oBinding = oTable.getBinding("items");
+                oBinding.filter(aFilter);
             }
         });
     });
