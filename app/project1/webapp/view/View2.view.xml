@@ -3,7 +3,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"
-    xmlns:tnt="sap.tnt"
+    
 >
     <Page
         id="page"
@@ -11,7 +11,7 @@
     >
         <content>
             <VBox id="_IDGenVBox1">
-                <HBox id="_IDGenHBox1">
+               <Toolbar >
                     <Button
                         id="_IDGenButton1"
                         text="Add"
@@ -32,18 +32,11 @@
                         icon="sap-icon://upload"
                         press="onImportPress"
                     />
-                    <Button
-                        id="_IDGenButton5"
-                        icon="sap-icon://search"
-                        press="onSearchPress"
-                    />
-                    <Button
-                        id="_IDGenButton6"
-                        icon="sap-icon://export"
-                        type="Emphasized"
-                        press="onExportPress"
-                    />
-                </HBox>
+                    
+                   
+                    <ToolbarSpacer ></ToolbarSpacer>
+                    <SearchField width="200px" search="onSearch"></SearchField>
+                </Toolbar>
 
                 <Table
                     id="supplierTable"

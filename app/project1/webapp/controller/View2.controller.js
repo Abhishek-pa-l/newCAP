@@ -1,12 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment,MessageToast) {
+    function (Controller, Fragment,MessageToast,Filter,FilterOperator) {
         "use strict";
 
         return Controller.extend("com.sap.project1.controller.View2", {
@@ -126,5 +128,17 @@ sap.ui.define([
 
                 
             },
+            onSearch : function(oEvent){
+                var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				aFilter.push(new Filter("CompanyName", FilterOperator.Contains, sQuery));
+			}
+
+			// filter binding
+			var oTable = this.byId("supplierTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aFilter);
+            }
         });
     });
