@@ -1,0 +1,21 @@
+<mvc:View
+    controllerName="com.sap.project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+    <content>
+            <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" select="onIconTabBarSelect">
+                <items>
+                    <IconTabFilter id="_IDsupplier" text="Supplier" key="Supplier" />
+                    <IconTabFilter id="_IDinvoice" text="Invoice" key="Invoice"/>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

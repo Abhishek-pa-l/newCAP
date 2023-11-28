@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Suppliers" EntityType="CatalogService.Suppliers"/>
+                <EntitySet Name="Invoices" EntityType="CatalogService.Invoices"/>
+            </EntityContainer>
+            <EntityType Name="Suppliers">
+                <Key>
+                    <PropertyRef Name="SupplierID"/>
+                </Key>
+                <Property Name="SupplierID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="CompanyName" Type="Edm.String"/>
+                <Property Name="ContactName" Type="Edm.String"/>
+                <Property Name="ContactTitle" Type="Edm.String"/>
+                <Property Name="Address" Type="Edm.String"/>
+                <Property Name="City" Type="Edm.String"/>
+                <Property Name="Region" Type="Edm.String"/>
+                <Property Name="PostalCode" Type="Edm.String"/>
+                <Property Name="Country" Type="Edm.String"/>
+                <Property Name="Phone" Type="Edm.String"/>
+                <Property Name="Fax" Type="Edm.String"/>
+                <Property Name="HomePage" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Invoices">
+                <Property Name="ShipName" Type="Edm.String"/>
+                <Property Name="ShipAddress" Type="Edm.String"/>
+                <Property Name="ShipCity" Type="Edm.String"/>
+                <Property Name="ShipRegion" Type="Edm.String"/>
+                <Property Name="ShipPostalCode" Type="Edm.String"/>
+                <Property Name="ShipCountry" Type="Edm.String"/>
+                <Property Name="CustomerID" Type="Edm.String"/>
+                <Property Name="CustomerName" Type="Edm.String"/>
+                <Property Name="Address" Type="Edm.String"/>
+                <Property Name="City" Type="Edm.String"/>
+                <Property Name="Region" Type="Edm.String"/>
+                <Property Name="PostalCode" Type="Edm.String"/>
+                <Property Name="Country" Type="Edm.String"/>
+                <Property Name="Salesperson" Type="Edm.String"/>
+                <Property Name="OrderID" Type="Edm.Int32"/>
+                <Property Name="OrderDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="RequiredDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="ShippedDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="ShipperName" Type="Edm.String"/>
+                <Property Name="ProductID" Type="Edm.Int32"/>
+                <Property Name="ProductName" Type="Edm.String"/>
+                <Property Name="UnitPrice" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="Quantity" Type="Edm.Int32"/>
+                <Property Name="Discount" Type="Edm.String"/>
+                <Property Name="ExtendedPrice" Type="Edm.Decimal" Scale="variable"/>
+                <Property Name="Freight" Type="Edm.Decimal" Scale="variable"/>
+            </EntityType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
