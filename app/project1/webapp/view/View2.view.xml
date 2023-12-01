@@ -3,6 +3,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"
+    xmlns:u="sap.ui.unified"
     
 >
     <Page
@@ -30,8 +31,14 @@
                     <Button
                         id="_IDGenButton4"
                         icon="sap-icon://upload"
-                        press="onImportPress"
+                        press="onExport"
                     />
+                    <u:FileUploader
+                                id="fileUploader"
+                                uploadUrl="upload/"
+                                change="onFileUploadChange"
+                                placeholder="Choose a CSV file"
+                            />
                     
                    
                     <ToolbarSpacer ></ToolbarSpacer>
